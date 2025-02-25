@@ -1,0 +1,23 @@
+<aside>
+  <div class="aside-title">
+    <mat-icon>dashboard</mat-icon>
+    <h1>OPERATI</h1>
+  </div>
+
+  <div class="aside-links">
+    <app-link
+      *ngIf="authService.role === 'Administrador'"
+      link="users"
+      icon="person"
+      name="Usuarios"
+    ></app-link>
+    <app-link
+      *ngIf="
+        authService.role === 'Usuario' || authService.role === 'Administrador'
+      "
+      link="zones"
+      icon="view_kanban"
+      name="Datos"
+    ></app-link>
+  </div>
+</aside>
