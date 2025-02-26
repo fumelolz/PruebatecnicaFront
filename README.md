@@ -1,27 +1,36 @@
-# PruebatecnicaFront
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.8.
+# Prueba Técnica - Angular
 
-## Development server
+Este es un proyecto en Angular desarrollado para una prueba técnica. A continuación, se detallan los pasos para la instalación y ejecución del proyecto.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Instalación
 
-## Code scaffolding
+Para instalar las dependencias del proyecto, ejecuta el siguiente comando en la terminal:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```sh
+npm i
+```
 
-## Build
+## Ejecución
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Para iniciar el proyecto en modo de desarrollo, utiliza el siguiente comando:
 
-## Running unit tests
+```sh
+npm start
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Configuración del Backend
 
-## Running end-to-end tests
+Las URLs del backend están definidas en los archivos de entorno (`environment.ts` y `environment.prod.ts`). Dentro de estos archivos, encontrarás la propiedad `api` con la URL correspondiente al backend.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Además, hay una propiedad llamada `delay` que se utiliza para simular un pequeño retraso en las peticiones HTTP, haciendo la prueba más realista.
 
-## Further help
+### Archivo `environment.ts` de ejemplo:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```typescript
+export const environment = {
+  production: false,
+  api: 'https://localhost:7070/api/v1/',
+  delay: 3000,
+};
+```
