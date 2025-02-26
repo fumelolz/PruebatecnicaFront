@@ -38,11 +38,7 @@ export class AuthInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const excludedRoutes = [
-      'http://localhost:8000/auth/login',
-      'http://localhost:8000/auth/register',
-      'http://localhost:8000/auth/refreshtoken',
-    ];
+    const excludedRoutes = ['http://localhost:8000/auth/login'];
 
     if (excludedRoutes.includes(request.url)) {
       return next.handle(request);
@@ -80,7 +76,7 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     if (this.isRefreshing) {
       return this.refreshTokenSubject.pipe(
-        filter((token) => token !== null), // Espera hasta que haya un token válido
+        filter((token) => token !== null),
         take(1),
         switchMap((token) => {
           return next.handle(this.addTokenToRequest(request, token!));
@@ -89,7 +85,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     this.isRefreshing = true;
-    this.refreshTokenSubject.next(null); // Reseteamos el subject mientras se refresca el token
+    this.refreshTokenSubject.next(null);
     const refreshToken = localStorage.getItem('refresh_token')!;
     return this.authService.refreshToken(refreshToken).pipe(
       switchMap((response) => {
@@ -98,7 +94,7 @@ export class AuthInterceptor implements HttpInterceptor {
           throw new Error('No se pudo obtener un nuevo token');
         }
         this.authService.setToken(newAccessToken);
-        this.refreshTokenSubject.next(newAccessToken); // Notificamos a los observadores
+        this.refreshTokenSubject.next(newAccessToken);
         return next.handle(this.addTokenToRequest(request, newAccessToken));
       }),
       catchError((refreshError) => {

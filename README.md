@@ -34,3 +34,12 @@ export const environment = {
   delay: 3000,
 };
 ```
+
+### Modulo de usuarios
+Muestra solo los usuarios registrados en el sistema
+![Modulo de usuarios](/public/readme/Modulousuarios.png){width=200}
+
+### Modulo de datos
+
+Muestra la opción de poder obtener los datos de la pagina de la CENACE, como tambíen la tabla con filtros para los datos, así como un buscador
+![Modulo de datos](/public/readme/Modulodedatos.png){width=200}
