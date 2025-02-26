@@ -1,6 +1,8 @@
 export interface AuthLogin {
   token: string;
   expiration: Date;
+  refreshToken: string;
+  refreshTokenExpiration: Date;
   account: AuthLoginAccount;
   roles: AuthLoginRole[];
 }

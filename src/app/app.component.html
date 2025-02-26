@@ -1,6 +1,4 @@
-<mat-progress-bar
-  mode="indeterminate"
-  *ngIf="isLoading"
-  class="loader"
-></mat-progress-bar>
+<div class="loader-overlay" *ngIf="isLoading">
+  <mat-spinner class="loader"></mat-spinner>
+</div>
 <router-outlet></router-outlet>

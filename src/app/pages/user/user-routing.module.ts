@@ -14,20 +14,6 @@ const routes: Routes = [
             (m) => m.ListUserModule
           ),
       },
-      {
-        path: 'new',
-        loadChildren: () =>
-          import('./pages/add-user/add-user.module').then(
-            (m) => m.AddUserModule
-          ),
-      },
-      {
-        path: 'update/:id',
-        loadChildren: () =>
-          import('./pages/add-user/add-user.module').then(
-            (m) => m.AddUserModule
-          ),
-      },
     ],
   },
 ];

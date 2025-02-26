@@ -8,6 +8,6 @@ export class NamePipe implements PipeTransform {
     if (!value) {
       return '';
     }
-    return `${value.name} ${value.last_name}`;
+    return `${value.name} ${value.firstSurname}`;
   }
 }

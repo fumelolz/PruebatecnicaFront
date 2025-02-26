@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.userForm.value).subscribe({
       next: (response) => {
         localStorage.setItem('access_token', response.data.token);
+        localStorage.setItem('refresh_token', response.data.refreshToken);
         localStorage.setItem('role', response.data.roles[0].name);
         localStorage.setItem(
           'user_data',

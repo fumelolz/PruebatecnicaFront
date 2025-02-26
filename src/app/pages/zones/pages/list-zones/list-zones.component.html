@@ -1,57 +1,161 @@
 <div class="list-container">
   <h6>Obtener información</h6>
-  <p>Usa el selector para obtener información de la cenade</p>
+  <p>Usa el selector para obtener información de la CENACE</p>
   <div class="scrapper-section">
     <div class="input-group">
-      <select id="year">
+      <select id="year" name="year" [(ngModel)]="year">
+        <option value="2016">2016</option>
+        <option value="2017">2017</option>
+        <option value="2018">2018</option>
+        <option value="2019">2019</option>
+        <option value="2020">2020</option>
         <option value="2021">2021</option>
         <option value="2022">2022</option>
         <option value="2023">2023</option>
         <option value="2024">2024</option>
       </select>
     </div>
-    <button mat-flat-button color="primary">Agregar</button>
+    <button mat-flat-button color="primary" (click)="Getdata(year)">
+      Obtener
+    </button>
   </div>
 </div>
 <div class="list-container">
-  <div class="list-controls">
-    <div class="input-group">
+  <div class="list-controls"></div>
+  <h6>Filtros</h6>
+  <div class="filters" style="display: flex; justify-content: space-between">
+    <div class="filter" style="display: flex; gap: 12px">
+      <div
+        class="filter-item"
+        style="display: flex; flex-direction: column; width: 240px"
+      >
+        <label for="minCapacity">Capacidad Demandada</label>
+
+        <div class="filter-item-inputs" style="display: flex">
+          <div class="input-group" style="margin-right: 12px">
+            <label for="search">Min</label>
+            <input id="search" type="search" [value]="minCapacity" disabled />
+          </div>
+          <div class="input-group">
+            <label for="search">Max</label>
+            <input id="search" type="search" [value]="maxCapacity" disabled />
+          </div>
+        </div>
+        <mat-slider
+          min="0"
+          max="100"
+          showTickMarks
+          discrete
+          [displayWith]="formatLabel"
+        >
+          <input
+            value="0"
+            matSliderStartThumb
+            (dragEnd)="onDragEnd($event, 'start')"
+          />
+          <input
+            value="100"
+            matSliderEndThumb
+            (dragEnd)="onDragEnd($event, 'end')"
+          />
+        </mat-slider>
+      </div>
+      <div class="filter-item">
+        <div class="input-group">
+          <label for="selectYear">Año</label>
+          <label for="selectYear">Seleccionar Año</label>
+          <select
+            id="selectYear"
+            name="selectYear"
+            (change)="selectYear($event)"
+          >
+            <option [value]="null">Todos</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="input-group" style="width: 240px">
       <label for="search">Buscar</label>
-      <input id="search" type="search" placeholder="Buscar..." />
+      <input
+        id="search"
+        type="search"
+        placeholder="Buscar..."
+        [value]="searchSig()"
+        (keyup)="search($event)"
+      />
     </div>
   </div>
   <table
     mat-table
-    [dataSource]="users"
+    [dataSource]="zones"
     class="mat-elevation-z8"
     matSort
-    *ngIf="users.length"
+    (matSortChange)="sortChange($event)"
+    *ngIf="zones.length && !isLoading"
   >
-    <ng-container matColumnDef="Nombre">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-      <td mat-cell *matCellDef="let user">{{ user | name }}</td>
+    <ng-container matColumnDef="Zona">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Zona</th>
+      <td mat-cell *matCellDef="let zone">{{ zone.name }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="Email">
-      <th mat-header-cell *matHeaderCellDef>Email</th>
-      <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+    <ng-container matColumnDef="Anio">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Año</th>
+      <td mat-cell *matCellDef="let zone">{{ zone.anio }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="Acciones">
-      <th mat-header-cell *matHeaderCellDef>Acciones</th>
-      <td mat-cell *matCellDef="let user">
-        <button
-          mat-icon-button
-          color="primary"
-          [routerLink]="'update/' + user.userId"
-        >
-          <mat-icon>visibility</mat-icon>
-        </button>
+    <ng-container matColumnDef="Participante">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Participante</th>
+      <td mat-cell *matCellDef="let zone">{{ zone.participant }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="SubCuenta">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Sub cuenta</th>
+      <td mat-cell *matCellDef="let zone">{{ zone.subAccount }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="CapacidadDemandada">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Capacidad Demandada
+      </th>
+      <td mat-cell *matCellDef="let zone">{{ zone.capacidadDemandada }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="RequisitoAnual">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Requisito Anual</th>
+      <td mat-cell *matCellDef="let zone">
+        {{ zone.requisitoAnualDePotencia }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ValorDelRequisitoAnual">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Valor del requisito Anual
+      </th>
+      <td mat-cell *matCellDef="let zone">
+        {{ zone.valorDelRequisitoAnualEficiente }}
       </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
-  <div class="box-alert info" *ngIf="users.length === 0">Cargando...</div>
+  <div class="box-alert info" *ngIf="zones.length === 0 || isLoading">
+    No hay registros para mostrar
+  </div>
+  <mat-paginator
+    [length]="totalItems"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="changePage($event)"
+  >
+  </mat-paginator>
 </div>

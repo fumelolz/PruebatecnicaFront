@@ -23,12 +23,4 @@ export class UserService {
       environment.api.concat(`users/${id}`)
     );
   }
-
-  saveOne(body: any): Observable<any> {
-    return this.http.post(environment.api.concat('auth/register'), body);
-  }
-
-  updateOne(id: number, body: any): Observable<any> {
-    return this.http.put(environment.api.concat(`auth/users/${id}`), body);
-  }
 }

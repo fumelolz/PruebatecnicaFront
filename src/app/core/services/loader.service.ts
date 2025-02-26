@@ -11,9 +11,11 @@ export class LoaderService {
 
   show() {
     this.isLoading.next(true);
+    document.body.style.overflow = 'hidden'; // Bloquea el scroll
   }
 
   hide() {
     this.isLoading.next(false);
+    document.body.style.overflow = '';
   }
 }

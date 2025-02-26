@@ -5,9 +5,15 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { NamePipe } from './pipes/name.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputErrorDirective } from './directives/input-error.directive';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
-  declarations: [LoaderComponent, NamePipe, InputErrorDirective],
+  declarations: [
+    LoaderComponent,
+    NamePipe,
+    InputErrorDirective,
+    ConfirmationDialogComponent,
+  ],
   imports: [CommonModule, MaterialModule, ReactiveFormsModule, FormsModule],
   exports: [
     CommonModule,

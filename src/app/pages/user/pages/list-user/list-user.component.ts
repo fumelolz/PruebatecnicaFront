@@ -9,7 +9,7 @@ import { User } from '../../../../core/models/users/User.model';
   styleUrls: ['./list-user.component.scss'],
 })
 export class ListUserComponent implements OnInit {
-  displayedColumns: string[] = ['Nombre', 'Email', 'Acciones'];
+  displayedColumns: string[] = ['Nombre', 'Email', 'Roles'];
   users: User[] = [];
   constructor(private readonly userService: UserService) {}
 

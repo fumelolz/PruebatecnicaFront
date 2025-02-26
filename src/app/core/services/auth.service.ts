@@ -22,6 +22,13 @@ export class AuthService {
     );
   }
 
+  refreshToken(token: string): Observable<ApiResponse<AuthLogin>> {
+    return this.http.post<ApiResponse<AuthLogin>>(
+      environment.api.concat('auth/refreshtoken'),
+      { token }
+    );
+  }
+
   logout(): void {
     localStorage.removeItem('access_token');
     localStorage.removeItem('role');
@@ -32,6 +39,10 @@ export class AuthService {
 
   isLoggedIn() {
     return localStorage.getItem('access_token') !== null ? true : false;
+  }
+
+  setToken(token: string): void {
+    localStorage.setItem('access_token', token);
   }
 
   get token(): string {

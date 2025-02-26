@@ -13,6 +13,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatDialogModule } from '@angular/material/dialog';
 const MODULES = [
   CommonModule,
   MatTableModule,
@@ -28,6 +30,8 @@ const MODULES = [
   MatPaginatorModule,
   MatProgressBarModule,
   MatTooltipModule,
+  MatSliderModule,
+  MatDialogModule,
 ];
 
 @NgModule({
