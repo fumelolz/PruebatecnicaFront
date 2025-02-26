@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
           'user_data',
           JSON.stringify({
             name: response.data.account.name,
-            last_name: response.data.account.firstSurname,
+            firstSurname: response.data.account.firstSurname,
           })
         );
         this._snackBar.open('Bienvenido', '', {
