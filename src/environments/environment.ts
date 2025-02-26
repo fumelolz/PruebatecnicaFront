@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   api: 'https://localhost:7070/api/v1/',
-  delay: 3000,
+  delay: 200,
 };
 
 /*

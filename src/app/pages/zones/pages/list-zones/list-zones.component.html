@@ -1,4 +1,4 @@
-<div class="list-container">
+<div class="list-container" *ngIf="authService.role === 'Administrador'">
   <h6>Obtener información</h6>
   <p>Usa el selector para obtener información de la CENACE</p>
   <div class="scrapper-section">

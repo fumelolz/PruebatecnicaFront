@@ -9,6 +9,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationDialogService } from '../../../../core/services/confirmation-dialog.service';
 import { Zonefilters } from '../../../../core/models/zones/ZoneFilters.interface';
+import { AuthService } from '../../../../core/services/auth.service';
 @Component({
   selector: 'app-list-zones',
   templateUrl: './list-zones.component.html',
@@ -41,7 +42,8 @@ export class ListZonesComponent {
   constructor(
     private readonly _zonesService: ZonesService,
     private readonly _snackBar: MatSnackBar,
-    private readonly _confirmationDialogService: ConfirmationDialogService
+    private readonly _confirmationDialogService: ConfirmationDialogService,
+    public readonly authService: AuthService
   ) {
     toObservable(this.searchSig)
       .pipe(debounceTime(300), distinctUntilChanged())

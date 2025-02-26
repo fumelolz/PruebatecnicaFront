@@ -35,11 +35,27 @@ export const environment = {
 };
 ```
 
+El sistema incluye dos usuarios predefinidos para pruebas:
+
+1. **Administrador:**
+   - **Correo:** `dany_magadan@hotmail.com`
+   - **Contraseña:** `Heros2022#`
+
+2. **Usuario Regular:**
+   - **Correo:** `juan_perez@hotmail.com`
+   - **Contraseña:** `Heros2022#`
+
+El usuario regular solo puede ver los datos, no puede hacer uso del scrapper ni ver la tabla de usuarios
+![Permisos](/public/readme/permisos.png)
+
+Tampoco puede hacer uso si intenga acceder a través de la ruta, le saldrá un snackbar diciendole que no cuenta con los permisos necesarios
+![Permisos Necesarios](/public/readme/permisosnecesarios.png)
+
 ### Modulo de usuarios
 Muestra solo los usuarios registrados en el sistema
-![Modulo de usuarios](/public/readme/Modulousuarios.png){width=200}
+![Modulo de usuarios](/public/readme/Modulousuarios.png)
 
 ### Modulo de datos
 
 Muestra la opción de poder obtener los datos de la pagina de la CENACE, como tambíen la tabla con filtros para los datos, así como un buscador
-![Modulo de datos](/public/readme/Modulodedatos.png){width=200}
+![Modulo de datos](/public/readme/Modulodedatos.png)
