@@ -49,6 +49,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem(
           'user_data',
           JSON.stringify({
+            userId: response.data.account.userId,
             name: response.data.account.name,
             firstSurname: response.data.account.firstSurname,
           })

@@ -53,7 +53,7 @@ export class AuthService {
     return localStorage.getItem('role')!;
   }
 
-  get user(): string {
+  get user(): any {
     return JSON.parse(localStorage.getItem('user_data')!);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { User } from '../../../../core/models/users/User.model';
 import { UserService } from '../../../../core/services/user.service';
 import { ZonesService } from '../../../../core/services/zones.service';
@@ -15,7 +15,7 @@ import { AuthService } from '../../../../core/services/auth.service';
   templateUrl: './list-zones.component.html',
   styleUrl: './list-zones.component.scss',
 })
-export class ListZonesComponent {
+export class ListZonesComponent implements OnInit, OnDestroy {
   searchSig = signal<string>('');
   displayedColumns: string[] = [
     'Zona',
@@ -51,9 +51,24 @@ export class ListZonesComponent {
         this.getZones();
       });
   }
+  ngOnDestroy(): void {
+    this._zonesService.isManuallyDisconnected = true;
+    this._zonesService.stopConnection();
+  }
 
   ngOnInit(): void {
     this.getZones();
+    this._zonesService.isManuallyDisconnected = false;
+    this._zonesService.startConnection();
+    this._zonesService.statusScrapper$.subscribe((response) => {
+      if (response.message === '') {
+        return;
+      }
+      this._snackBar.open(response.message, '', {
+        duration: 3000,
+      });
+      this.getZones();
+    });
   }
 
   formatLabel(value: number): string {
@@ -137,14 +152,9 @@ export class ListZonesComponent {
   setZones(year: number, update: boolean): void {
     this._zonesService.getData(year, update).subscribe({
       next: (response) => {
-        this._snackBar.open(
-          'Información Obtenida correctamente, recargando la tabla',
-          '',
-          {
-            duration: 3000,
-          }
-        );
-        this.getZones();
+        this._snackBar.open('La petición se encuentra en cola', '', {
+          duration: 3000,
+        });
       },
     });
   }
